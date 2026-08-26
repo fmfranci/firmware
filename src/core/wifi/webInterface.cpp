@@ -1,4 +1,5 @@
 #include "webInterface.h"
+#include "rfWebApi.h"
 #include "core/display.h"    // using displayRedStripe as error msg
 #include "core/mykeyboard.h" // using keyboard when calling rename
 #include "core/passwords.h"
@@ -397,6 +398,7 @@ void configureWebServer() {
     mdnsRunning = startMdnsResponder();
     DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
     server->onNotFound(notFound);
+    configureRfWebApi();
 
     // Index
     server->on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
